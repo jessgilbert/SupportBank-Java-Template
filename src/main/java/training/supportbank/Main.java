@@ -34,7 +34,7 @@ public class Main {
             String narrative = bits[3];
             String transAmount = bits[4];
 
-            System.out.println(bits[2]);
+            System.out.println(fromName + " owes " + toName + transAmount + " since " + transDate);
 
 
 
