@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -28,13 +30,15 @@ public class Main {
 
             String[] bits = line.split(",");
 
-            String transDate = bits[0];
-            String fromName = bits[1];
-            String toName = bits[2];
             String narrative = bits[3];
-            String transAmount = bits[4];
+            Transaction t = new Transaction();
+            t.fromName = bits[1];
+            t.transAmount = Double.parseDouble(bits[4]);
+            t.toName = bits[2];
+            t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-            System.out.println(fromName + " owes " + toName + transAmount + " since " + transDate);
+
+            System.out.println(t.fromName + " owes " +  toName + " " + transAmount + " since " + transDate);
 
 
 
