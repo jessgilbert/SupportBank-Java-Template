@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,7 +27,10 @@ public class Main {
 //        Pattern p = Pattern.compile("(.*),(.*),(.*),(.*),(.*)");
 //        Matcher m = p.matcher(fileContents);
 
-        for (String line: lines) {
+        List<Person> people = new ArrayList<>();
+
+        for (int i = 1; i < lines.size(); i++) {
+            String line = lines.get(i);
 
             String[] bits = line.split(",");
 
@@ -37,14 +41,17 @@ public class Main {
             t.toName = bits[2];
             t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
+            Person p = new Person();
+            people.add(p);
 
-            System.out.println(t.fromName + " owes " +  toName + " " + transAmount + " since " + transDate);
+
+            System.out.println(t.fromName + " owes " +  t.toName + " " + t.transAmount + " since " + t.transDate);
 
 
 
         }
 
-
+        System.out.println("There are " + people.size() + " people");
 //        System.out.println(fileContents);
     }
 }
