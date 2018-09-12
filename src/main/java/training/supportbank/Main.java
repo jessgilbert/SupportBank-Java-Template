@@ -41,7 +41,7 @@ public class Main {
             t.toName = bits[2];
             t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
 
-            Person p = new Person();
+            Person p = new Person(t.fromName);
             people.add(p);
 
 
@@ -52,12 +52,8 @@ public class Main {
         }
 
         System.out.println("There are " + people.size() + " people");
-//        System.out.println(fileContents);
+        for (Person p : people) {
+            System.out.println(p.name);
+        }
     }
 }
-
-
-
-
-
-
