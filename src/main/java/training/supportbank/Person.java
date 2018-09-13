@@ -15,4 +15,13 @@ public class Person {
     public String toString() {
         return name + transactions + "\n";
     }
+
+    public String getSummary(){
+        Double total = 0
+        for (Transaction currentTransaction: transactions) {
+
+            if()
+        }
+
+    }
 }

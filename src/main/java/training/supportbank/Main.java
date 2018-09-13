@@ -110,9 +110,8 @@ public class Main {
             String lineOfText = userinput.nextLine();
 
             if (lineOfText.equals("List all")) {
-                for (String pep: hm.keySet()) {
-                    Person pepp = hm.get(pep);
-                    System.out.println(pepp);
+                for (Person person: hm.values()) {
+                    System.out.println(person);
                 }
 
             }
@@ -120,6 +119,11 @@ public class Main {
             else if (lineOfText.startsWith("List") ) {
                 String name = lineOfText.substring(5);
                 System.out.print(hm.get(name));
+
+                /* For total transaction amounts
+                 if name typed in is equal to the fromName then - transAmount
+                 if name typed in is equal to toName then + transAmount for each transaction
+                */
             }
         }
 
