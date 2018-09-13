@@ -1,10 +1,5 @@
 package training.supportbank;
 
-import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-
-import javax.sound.sampled.Line;
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -15,8 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Main {
 
@@ -115,11 +108,13 @@ public class Main {
         for (int i = 1; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
 
-//            if (Transaction.contains) {
-//
-//
-//            }
+            String from = transaction.fromName;
+            Person fromPerson = hm.get(from);
+            fromPerson.transactions.add(transaction);
 
+            String to = transaction.toName;
+            Person toPerson = hm.get(to);
+            toPerson.transactions.add(transaction);
         }
     }
 }
