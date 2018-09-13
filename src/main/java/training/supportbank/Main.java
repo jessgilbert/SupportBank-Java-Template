@@ -1,5 +1,6 @@
 package training.supportbank;
 
+import com.sun.xml.internal.messaging.saaj.packaging.mime.util.BEncoderStream;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import javax.sound.sampled.Line;
@@ -29,9 +30,17 @@ public class Main {
 
         // 2. Create Transactions
         List<Transaction> transactions = createTransactions(lines);
+
         // 3. Create People
         HashMap<String, Person> people = createPeople(transactions);
+
+        // 3.a) Add transactions to peoples' accounts
+        String accountDetails = new String();
+        createAccounts(accountDetails);
+
+
         // 4. Ask the user for their command
+
 
         // 5. Print out details
 
@@ -64,6 +73,7 @@ public class Main {
 
     public static List<Transaction> createTransactions(List<String> lines) {
         ArrayList<Transaction> ts = new ArrayList<Transaction>();
+
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
 
@@ -83,11 +93,37 @@ public class Main {
     }
 
     public static HashMap<String, Person> createPeople(List<Transaction> transactions) {
+        HashMap<String, Person> hm = new HashMap<>();
+
+        for (int i = 1; i < transactions.size(); i++) {
+            Transaction transaction = transactions.get(i);
 
 
+            if (!hm.containsKey(transaction.fromName)) {
+                Person p = new Person(transaction.fromName);
+                hm.put(transaction.fromName, p);
+            }
+            if (!hm.containsKey(transaction.toName)) {
+                Person p = new Person(transaction.toName);
+                hm.put(transaction.toName, p);
+            }
+        }
+        return hm;
+    }
+
+    public static void createAccounts(String name, Double transactions) {
+
+        for (int i = 1; i < transactions.name(); i++) {
+            Transaction transaction = transactions.get(i);
+
+            if (Transaction) {
+
+
+            }
+
+        }
     }
 }
-
 
 //    public static Hashmap<String, Person> createPerson(List<Transaction>) {
 //
@@ -99,7 +135,7 @@ public class Main {
 //
 //            System.out.println();
 //
-//            HashMap<String,Person> hm = new HashMap<>();
+//
 //            hm.put(, userinput );
 //            hm.get(people);
 //

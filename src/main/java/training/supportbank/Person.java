@@ -1,27 +1,13 @@
 package training.supportbank;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class Person {
     public String name;
-    public Double moneyOwed;
-    public Double moneyOwes;
-    public LocalDate date;
+    public List<Transaction> transactions;
 
-    public Person (String name) {
+    public Person(String name){
         this.name = name;
-    }
-
-    public Double getMoneyOwed() {
-        return moneyOwed;
-
-    }
-
-    public Double getMoneyOwes() {
-        return moneyOwes;
-    }
-
-    public LocalDate getDate() {
-        return date;
     }
 }
