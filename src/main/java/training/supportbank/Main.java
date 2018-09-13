@@ -1,5 +1,7 @@
 package training.supportbank;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+
 import javax.sound.sampled.Line;
 import java.io.File;
 import java.io.IOException;
@@ -21,8 +23,17 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2Transactions2014.csv");
-        List<String> lines = Files.readAllLines(path);
+
+        // 1. Read the file
+        List<String> lines = readTheFile();
+
+        // 2. Create Transactions
+        List<Transaction> transactions = createTransactions(lines);
+        // 3. Create People
+        HashMap<String, Person> people = createPeople(transactions);
+        // 4. Ask the user for their command
+
+        // 5. Print out details
 
 
 
@@ -33,8 +44,27 @@ public class Main {
 //        Pattern p = Pattern.compile("(.*),(.*),(.*),(.*),(.*)");
 //        Matcher m = p.matcher(fileContents);
 
-        List<Person> people = new ArrayList<>();
+//
+//
+//            System.out.println(t.fromName + " owes " + t.toName + " " + t.transAmount + " since " + t.transDate);
+        }
 
+        System.out.print("Please enter and Account holder name from above list");
+        userinput.nextLine();
+        if(userinput.hasNextLine()) {
+            String lineOfText = userinput.nextLine();
+        }
+    }
+
+    public static List<String> readTheFile() throws IOException {
+        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2Transactions2014.csv");
+        List<String> lines = Files.readAllLines(path);
+        return lines;
+
+    }
+
+    public static List<Transaction> createTransactions(List<String> lines) {
+        ArrayList<Transaction> ts = new ArrayList<Transaction>();
         for (int i = 1; i < lines.size(); i++) {
             String line = lines.get(i);
 
@@ -46,24 +76,29 @@ public class Main {
             t.transAmount = Double.parseDouble(bits[4]);
             t.toName = bits[2];
             t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            ts.add(t);
 
+        }
+
+        return ts;
+    }
+}
+
+    public static Hashmap<String, Person> createPerson(List<Transaction>) {
+
+
+        }
+//        List<Person> people = new ArrayList<>();
+//
+//
+//
+//            System.out.println();
+//
 //            HashMap<String,Person> hm = new HashMap<>();
 //            hm.put(, userinput );
 //            hm.get(people);
 //
 //            if(hm.containsKey(Person))
-//
-        }
-
-        System.out.print("Enter Account holder name for list of transactions");
-        userinput.nextLine();
-        if(userinput.hasNextLine()) {
-            String lineOfText = userinput.nextLine();
-
-//            if(userinput = Person);
-
-        }
-
 
 
 //        System.out.println("There are " + people.size() + " people");
@@ -74,8 +109,6 @@ public class Main {
 //
 //        }
 
-    }
-
 //    private void setName(String nextLine) {
 //    }
-}
+
