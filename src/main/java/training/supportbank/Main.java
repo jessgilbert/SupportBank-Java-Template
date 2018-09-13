@@ -32,28 +32,14 @@ public class Main {
 
 
         // 4. Ask the user for their command
-
+        giveCommand();
 
         // 5. Print out details
 
-
-//        byte[] bytes = Files.readAllBytes(path);
-//        String fileContents =  new String(bytes);
-
-
-//        Pattern p = Pattern.compile("(.*),(.*),(.*),(.*),(.*)");
-//        Matcher m = p.matcher(fileContents);
-
-//
-//
 //            System.out.println(t.fromName + " owes " + t.toName + " " + t.transAmount + " since " + t.transDate);
 //        }
 //
-//        System.out.print("Please enter and Account holder name from above list");
-//        userinput.nextLine();
-//        if(userinput.hasNextLine()) {
-//            String lineOfText = userinput.nextLine();
-//        }
+//
     }
 
     public static List<String> readTheFile() throws IOException {
@@ -116,27 +102,34 @@ public class Main {
             Person toPerson = hm.get(to);
             toPerson.transactions.add(transaction);
         }
-    }
-}
 
+    }
+
+    public static void giveCommand() {
+
+        System.out.print("Please pick either list all or list account name: ");
+        userinput.nextLine();
+
+        if(userinput.hasNextLine()) {
+            String lineOfText = userinput.nextLine();
+        }
+
+        if(userinput.hasNext("list all")) {
+            System.out.println("List all");
+        }
+
+//
+    }
+
+}
+// if(userinput.equals(Person))
+//            System.out.println(Person.transactions);
 //    public static Hashmap<String, Person> createPerson(List<Transaction>) {
 //
 //
 //    }
-//        List<Person> people = new ArrayList<>();
 //
-//
-//
-//            System.out.println();
-//
-//
-//            hm.put(, userinput );
-//            hm.get(people);
-//
-//            if(hm.containsKey(Person))
-
-
-//        System.out.println("There are " + people.size() + " people");
+// System.out.println("There are " + people.size() + " people");
 //        for (Person p : people) {
 //            System.out.println(p.name);
 //

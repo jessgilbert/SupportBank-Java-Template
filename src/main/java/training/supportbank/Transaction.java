@@ -8,4 +8,9 @@ public class Transaction {
     public Double transAmount;
     public LocalDate transDate;
 
+//    public Double getTransAmount(){
+//
+//    }
+//
+
 }
