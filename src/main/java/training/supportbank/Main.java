@@ -35,8 +35,7 @@ public class Main {
         HashMap<String, Person> people = createPeople(transactions);
 
         // 3.a) Add transactions to peoples' accounts
-        String accountDetails = new String();
-        createAccounts(accountDetails);
+        createAccounts(transactions, people);
 
 
         // 4. Ask the user for their command
@@ -111,15 +110,15 @@ public class Main {
         return hm;
     }
 
-    public static void createAccounts(String name, Double transactions) {
+    public static void createAccounts(List<Transaction> transactions, HashMap<String, Person> hm) {
 
-        for (int i = 1; i < transactions.name(); i++) {
+        for (int i = 1; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
 
-            if (Transaction) {
-
-
-            }
+//            if (Transaction.contains) {
+//
+//
+//            }
 
         }
     }
