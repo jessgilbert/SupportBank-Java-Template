@@ -116,6 +116,11 @@ public class Main {
                 }
 
             }
+
+            else if (lineOfText.startsWith("List") ) {
+                String name = lineOfText.substring(5);
+                System.out.print(hm.get(name));
+            }
         }
 
 
