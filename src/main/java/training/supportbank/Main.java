@@ -36,7 +36,6 @@ public class Main {
         // 5. Print out details
 
 
-
 //        byte[] bytes = Files.readAllBytes(path);
 //        String fileContents =  new String(bytes);
 
@@ -47,13 +46,13 @@ public class Main {
 //
 //
 //            System.out.println(t.fromName + " owes " + t.toName + " " + t.transAmount + " since " + t.transDate);
-        }
-
-        System.out.print("Please enter and Account holder name from above list");
-        userinput.nextLine();
-        if(userinput.hasNextLine()) {
-            String lineOfText = userinput.nextLine();
-        }
+//        }
+//
+//        System.out.print("Please enter and Account holder name from above list");
+//        userinput.nextLine();
+//        if(userinput.hasNextLine()) {
+//            String lineOfText = userinput.nextLine();
+//        }
     }
 
     public static List<String> readTheFile() throws IOException {
@@ -82,12 +81,18 @@ public class Main {
 
         return ts;
     }
+
+    public static HashMap<String, Person> createPeople(List<Transaction> transactions) {
+
+
+    }
 }
 
-    public static Hashmap<String, Person> createPerson(List<Transaction>) {
 
-
-        }
+//    public static Hashmap<String, Person> createPerson(List<Transaction>) {
+//
+//
+//    }
 //        List<Person> people = new ArrayList<>();
 //
 //
