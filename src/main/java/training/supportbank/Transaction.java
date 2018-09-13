@@ -8,6 +8,10 @@ public class Transaction {
     public Double transAmount;
     public LocalDate transDate;
 
+    public String toString() {
+        return fromName + " " + toName + " " + transAmount + " " + transDate ;
+    }
+
 //    public Double getTransAmount(){
 //
 //    }

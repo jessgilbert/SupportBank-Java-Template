@@ -30,16 +30,13 @@ public class Main {
         // 3.a) Add transactions to peoples' accounts
         createAccounts(transactions, people);
 
-
         // 4. Ask the user for their command
-        giveCommand();
+         giveCommand(transactions, people);
 
         // 5. Print out details
-
-//            System.out.println(t.fromName + " owes " + t.toName + " " + t.transAmount + " since " + t.transDate);
-//        }
+//        System.out.print(people);
 //
-//
+//        System.out.p
     }
 
     public static List<String> readTheFile() throws IOException {
@@ -105,23 +102,27 @@ public class Main {
 
     }
 
-    public static void giveCommand() {
+    public static void giveCommand(List<Transaction> transactions, HashMap<String, Person> hm) {
 
-        System.out.print("Please pick either list all or list account name: ");
-        userinput.nextLine();
+        System.out.print("Would you like to \"List all\" or List an \"Account name\" ");
 
-        if(userinput.hasNextLine()) {
+        if (userinput.hasNextLine()) {
             String lineOfText = userinput.nextLine();
+
+            if (lineOfText.equals("List all")) {
+                for (String pep: hm.keySet()) {
+                    Person pepp = hm.get(pep);
+                    System.out.println(pepp);
+                }
+
+            }
         }
 
-        if(userinput.hasNext("list all")) {
-            System.out.println("List all");
-        }
 
-//
     }
-
 }
+
+
 // if(userinput.equals(Person))
 //            System.out.println(Person.transactions);
 //    public static Hashmap<String, Person> createPerson(List<Transaction>) {
