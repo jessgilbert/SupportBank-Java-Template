@@ -19,34 +19,33 @@ import java.util.Scanner;
 public class Main {
 
     private static final Logger LOGGER = LogManager.getLogger();
-    
+
     static Scanner userinput = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
 
-
+        LOGGER.debug("-----");
+        LOGGER.debug("Reading the file");
         // 1. Read the file
         List<String> lines = readTheFile();
 
-        // 2. Create Transactions
+        LOGGER.info("Creating transactions");
         List<Transaction> transactions = createTransactions(lines);
 
-        // 3. Create People
+        LOGGER.info("Creating People");
         HashMap<String, Person> people = createPeople(transactions);
 
-        // 3.a) Add transactions to peoples' accounts
+        LOGGER.info("Creating Accounts");
         createAccounts(transactions, people);
 
-        // 4. Ask the user for their command
+        LOGGER.info("Asking for command");
          giveCommand(transactions, people);
-//         getSummary();
 
-        // 5. Print out details
 
     }
 
     public static List<String> readTheFile() throws IOException {
-        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\DodgyTransactions2015 (1).csv");
+        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2DodgyTransactions2015.csv");
         List<String> lines = Files.readAllLines(path);
         return lines;
 
@@ -56,19 +55,29 @@ public class Main {
         ArrayList<Transaction> ts = new ArrayList<Transaction>();
 
         for (int i = 1; i < lines.size(); i++) {
-            String line = lines.get(i);
+            LOGGER.info("About to create transactions for line number " + i);
 
+            String line = lines.get(i);
             String[] bits = line.split(",");
 
-//            String narrative = bits[3];
             Transaction t = new Transaction();
             t.fromName = bits[1];
-            t.transAmount = Double.parseDouble(bits[4]);
             t.toName = bits[2];
-            t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             t.narrative = bits[3];
-            ts.add(t);
 
+            try {
+                t.transAmount = Double.parseDouble(bits[4]);
+            } catch (Exception e) {
+                LOGGER.error(" I am trying to record the transaction amounts and am expecting numbers only. There was an error on line " + i + ". Error was with: " + bits[4] + ". Please change this to the correct format of a decimal number.");
+
+            }
+
+            try {
+                t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            } catch (Exception e) {
+                LOGGER.error("I am trying to read the date of this transaction. On line " + i + " I am expecting it in the format \"dd/MM/yyyy\". If \"" + bits[0] + "\" doesn't look in that format, please change it to this.");
+            }
+            ts.add(t);
         }
 
         return ts;
