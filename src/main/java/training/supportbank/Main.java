@@ -1,5 +1,8 @@
 
 package training.supportbank;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -11,10 +14,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-private static final Logger LOGGER = LogManager.getLogger();
+
 
 public class Main {
 
+    private static final Logger LOGGER = LogManager.getLogger();
+    
     static Scanner userinput = new Scanner(System.in);
 
     public static void main(String[] args) throws IOException {
