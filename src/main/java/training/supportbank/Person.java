@@ -1,5 +1,6 @@
 package training.supportbank;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,16 +18,18 @@ public class Person {
         return name + transactions + "\n";
     }
 
-    public String getSummary(List<Transaction> transactions, HashMap<String, Person> hm) {
+    public String getSummary() {
         Double total = 0.0;
         for (Transaction currentTransaction : transactions) {
 
-            if (name.equals(currentTransaction.fromName)); {
+            if (name.equals(currentTransaction.fromName)) {
                 total = total - currentTransaction.transAmount;
             }
-            if(name.equals(currentTransaction.toName));
+            if(name.equals(currentTransaction.toName)) {
                 total = total + currentTransaction.transAmount;
             }
+        }
+
         if(total > 0 ) {
             return name + " is owed " + total + "\n:" ;
         }
@@ -34,7 +37,7 @@ public class Person {
             return name + " owes " + total + "\n:";
         }
         else {
-            return name + "isn't owed nor owes any amount" + "\n:";
+            return name + " isn't owed nor owes any amount" + "\n:";
         }
 
 

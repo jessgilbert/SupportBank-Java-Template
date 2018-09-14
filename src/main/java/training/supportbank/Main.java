@@ -1,5 +1,7 @@
 package training.supportbank;
 
+import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -32,14 +34,10 @@ public class Main {
 
         // 4. Ask the user for their command
          giveCommand(transactions, people);
-
-
-         getSummary(transactions,  );
+//         getSummary();
 
         // 5. Print out details
-//        System.out.print(people);
-//
-//        System.out.p
+
     }
 
     public static List<String> readTheFile() throws IOException {
@@ -109,13 +107,18 @@ public class Main {
 
         System.out.print("Would you like to \"List all\" total transactions or \"List Account name\" ");
 
+//        Person people = new Person();
+
+//        hm.get("Todd").getSummary(List<Transaction> transactions, );
+
         if (userinput.hasNextLine()) {
             String lineOfText = userinput.nextLine();
 
             if (lineOfText.equals("List all")) {
                 for (Person person: hm.values()) {
-                    System.out.println(person);
+                    System.out.println(person.getSummary());
                 }
+
 
             }
 
