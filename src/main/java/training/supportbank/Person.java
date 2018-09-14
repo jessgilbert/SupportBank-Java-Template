@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 
 public class Person {
     public String name;
@@ -20,6 +23,7 @@ public class Person {
 
     public String getSummary() {
         Double total = 0.0;
+
         for (Transaction currentTransaction : transactions) {
 
             if (name.equals(currentTransaction.fromName)) {

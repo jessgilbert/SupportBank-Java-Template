@@ -128,12 +128,7 @@ public class Main {
 
             if (lineOfText.equals("List all")) {
                 for (Person person: hm.values()) {
-                    try {
-                        System.out.println(person.getSummary());
-                    } catch (Exception e) {
-                        LOGGER.error("I am trying to read this persons transactions");
-                    throw e;
-                    }
+                    System.out.println(person.getSummary());
                 }
 
 
