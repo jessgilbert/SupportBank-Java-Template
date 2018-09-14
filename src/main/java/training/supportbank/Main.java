@@ -1,7 +1,5 @@
+
 package training.supportbank;
-
-import sun.util.resources.cldr.zh.CalendarData_zh_Hans_HK;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,6 +10,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+
+private static final Logger LOGGER = LogManager.getLogger();
 
 public class Main {
 
@@ -41,7 +41,7 @@ public class Main {
     }
 
     public static List<String> readTheFile() throws IOException {
-        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2Transactions2014.csv");
+        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\DodgyTransactions2015 (1).csv");
         List<String> lines = Files.readAllLines(path);
         return lines;
 
