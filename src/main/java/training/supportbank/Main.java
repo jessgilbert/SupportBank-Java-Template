@@ -33,6 +33,9 @@ public class Main {
         // 4. Ask the user for their command
          giveCommand(transactions, people);
 
+
+         getSummary(transactions,  );
+
         // 5. Print out details
 //        System.out.print(people);
 //
@@ -104,7 +107,7 @@ public class Main {
 
     public static void giveCommand(List<Transaction> transactions, HashMap<String, Person> hm) {
 
-        System.out.print("Would you like to \"List all\" or List an \"Account name\" ");
+        System.out.print("Would you like to \"List all\" total transactions or \"List Account name\" ");
 
         if (userinput.hasNextLine()) {
             String lineOfText = userinput.nextLine();

@@ -22,12 +22,11 @@ public class Person {
         for (Transaction currentTransaction : transactions) {
 
             if (name.equals(currentTransaction.fromName)); {
-                total - currentTransaction.transAmount;
+                total = total - currentTransaction.transAmount;
             }
-            else if (name.equals(currentTransaction.toName)) {
-                total + currentTransaction.transAmount;
+            if(name.equals(currentTransaction.toName));
+                total = total + currentTransaction.transAmount;
             }
-        }
         if(total > 0 ) {
             return name + " is owed " + total + "\n:" ;
         }
@@ -35,7 +34,7 @@ public class Person {
             return name + " owes " + total + "\n:";
         }
         else {
-            return name + "isnt owed nor owes any amount" + "\n:";
+            return name + "isn't owed nor owes any amount" + "\n:";
         }
 
 
