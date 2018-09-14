@@ -122,16 +122,18 @@ public class Main {
 
         System.out.print("Would you like to \"List all\" total transactions or \"List Account name\" ");
 
-//        Person people = new Person();
-
-//        hm.get("Todd").getSummary(List<Transaction> transactions, );
-
+        LOGGER.info("About to allow command to be entered");
         if (userinput.hasNextLine()) {
             String lineOfText = userinput.nextLine();
 
             if (lineOfText.equals("List all")) {
                 for (Person person: hm.values()) {
-                    System.out.println(person.getSummary());
+                    try {
+                        System.out.println(person.getSummary());
+                    } catch (Exception e) {
+                        LOGGER.error("I am trying to read this persons transactions");
+                    throw e;
+                    }
                 }
 
 
