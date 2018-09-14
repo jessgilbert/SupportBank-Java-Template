@@ -55,12 +55,13 @@ public class Main {
 
             String[] bits = line.split(",");
 
-            String narrative = bits[3];
+//            String narrative = bits[3];
             Transaction t = new Transaction();
             t.fromName = bits[1];
             t.transAmount = Double.parseDouble(bits[4]);
             t.toName = bits[2];
             t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+            t.narrative = bits[3];
             ts.add(t);
 
         }

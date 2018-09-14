@@ -7,9 +7,10 @@ public class Transaction {
     public String toName;
     public Double transAmount;
     public LocalDate transDate;
+    public String narrative;
 
     public String toString() {
-        return transDate + " " + fromName + " owes " + toName + " £" + transAmount + "\n, \\s,";
+        return transDate + " " + fromName + " owes " + toName + " £" + transAmount + " for " + narrative + "\n, \\s,";
 //        return fromName + " owes " + toName + " for " + transAmount + " since " + transDate + "\n";
 
     }
