@@ -3,21 +3,13 @@ package training.supportbank;
 import java.time.LocalDate;
 
 public class Transaction {
-    public String fromName;
-    public String toName;
-    public Double transAmount;
-    public LocalDate transDate;
+    public String fromAccount;
+    public String toAccount;
+    public Double amount;
+    public LocalDate date;
     public String narrative;
 
     public String toString() {
-        return transDate + " " + fromName + " owes " + toName + " £" + transAmount + " for " + narrative + "\n, \\s,";
-//        return fromName + " owes " + toName + " for " + transAmount + " since " + transDate + "\n";
-
+        return date + " " + fromAccount + " owes " + toAccount + " £" + amount + " for " + narrative + "\n";
     }
-
-//    public Double getTransAmount(){
-//
-//    }
-//
-
 }

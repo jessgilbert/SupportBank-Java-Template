@@ -1,5 +1,7 @@
-
 package training.supportbank;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonDeserializer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -9,11 +11,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
-
+import java.util.*;
 
 
 public class Main {
@@ -24,28 +22,41 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        LOGGER.debug("-----");
-        LOGGER.debug("Reading the file");
-        // 1. Read the file
-        List<String> lines = readTheFile();
+        String filename = "C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2Transactions2014.csv";
+//        String filename = "C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\Transactions2013.json";
 
-        LOGGER.info("Creating transactions");
-        List<Transaction> transactions = createTransactions(lines);
+        List<Transaction> transactions = new ArrayList<>();
 
-        LOGGER.info("Creating People");
+        // 0. Is file .csv or .json?
+        if (filename.endsWith(".csv")) {
+            // 1. Read the file
+            List<String> lines = readTheFile(filename);
+
+            // 2. Create Transactions
+            transactions = createTransactions(lines);
+        } else if (filename.endsWith(".json")) {
+            // 2a. Read the File as one string
+            Path path = Paths.get(filename);
+            byte[] bytes = Files.readAllBytes(path);
+            String fileContents = new String(bytes);
+
+            //2b. Create Transactions
+            transactions = createJsonTransactions(fileContents);
+        }
+
+        // 3. Create People
         HashMap<String, Person> people = createPeople(transactions);
 
-        LOGGER.info("Creating Accounts");
+        // 3.a) Add transactions to peoples' accounts
         createAccounts(transactions, people);
 
-        LOGGER.info("Asking for command");
-         giveCommand(transactions, people);
-
+        // 4. Ask the user for their command
+        giveCommand(transactions, people);
 
     }
 
-    public static List<String> readTheFile() throws IOException {
-        Path path = Paths.get("C:\\Users\\JJG\\Work\\Training\\SupportBank-Java-Template\\2DodgyTransactions2015.csv");
+    public static List<String> readTheFile(String filename) throws IOException {
+        Path path = Paths.get(filename);
         List<String> lines = Files.readAllLines(path);
         return lines;
 
@@ -55,32 +66,32 @@ public class Main {
         ArrayList<Transaction> ts = new ArrayList<Transaction>();
 
         for (int i = 1; i < lines.size(); i++) {
-            LOGGER.info("About to create transactions for line number " + i);
-
             String line = lines.get(i);
+
             String[] bits = line.split(",");
 
             Transaction t = new Transaction();
-            t.fromName = bits[1];
-            t.toName = bits[2];
+            t.fromAccount = bits[1];
+            t.amount = Double.parseDouble(bits[4]);
+            t.toAccount = bits[2];
+            t.date = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
             t.narrative = bits[3];
-
-            try {
-                t.transAmount = Double.parseDouble(bits[4]);
-            } catch (Exception e) {
-                LOGGER.error(" I am trying to record the transaction amounts and am expecting numbers only. There was an error on line " + i + ". Error was with: " + bits[4] + ". Please change this to the correct format of a decimal number.");
-
-            }
-
-            try {
-                t.transDate = LocalDate.parse(bits[0], DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-            } catch (Exception e) {
-                LOGGER.error("I am trying to read the date of this transaction. On line " + i + " I am expecting it in the format \"dd/MM/yyyy\". If \"" + bits[0] + "\" doesn't look in that format, please change it to this.");
-            }
             ts.add(t);
+
         }
 
         return ts;
+    }
+
+    public static List<Transaction> createJsonTransactions(String fileContents) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, (JsonDeserializer<LocalDate>) (jsonElement, type, jsonDeserializationContext) ->
+                LocalDate.parse(jsonElement.getAsString())
+        );
+        Gson gson = gsonBuilder.create();
+
+        Transaction[] transactions = gson.fromJson(fileContents, Transaction[].class);
+        return new ArrayList<Transaction>(Arrays.asList(transactions));
     }
 
     public static HashMap<String, Person> createPeople(List<Transaction> transactions) {
@@ -90,13 +101,13 @@ public class Main {
             Transaction transaction = transactions.get(i);
 
 
-            if (!hm.containsKey(transaction.fromName)) {
-                Person p = new Person(transaction.fromName);
-                hm.put(transaction.fromName, p);
+            if (!hm.containsKey(transaction.fromAccount)) {
+                Person p = new Person(transaction.fromAccount);
+                hm.put(transaction.fromAccount, p);
             }
-            if (!hm.containsKey(transaction.toName)) {
-                Person p = new Person(transaction.toName);
-                hm.put(transaction.toName, p);
+            if (!hm.containsKey(transaction.toAccount)) {
+                Person p = new Person(transaction.toAccount);
+                hm.put(transaction.toAccount, p);
             }
         }
         return hm;
@@ -107,11 +118,11 @@ public class Main {
         for (int i = 1; i < transactions.size(); i++) {
             Transaction transaction = transactions.get(i);
 
-            String from = transaction.fromName;
+            String from = transaction.fromAccount;
             Person fromPerson = hm.get(from);
             fromPerson.transactions.add(transaction);
 
-            String to = transaction.toName;
+            String to = transaction.toAccount;
             Person toPerson = hm.get(to);
             toPerson.transactions.add(transaction);
         }
@@ -122,49 +133,19 @@ public class Main {
 
         System.out.print("Would you like to \"List all\" total transactions or \"List Account name\" ");
 
-        LOGGER.info("About to allow command to be entered");
         if (userinput.hasNextLine()) {
             String lineOfText = userinput.nextLine();
 
             if (lineOfText.equals("List all")) {
-                for (Person person: hm.values()) {
+                for (Person person : hm.values()) {
                     System.out.println(person.getSummary());
                 }
-
-
-            }
-
-            else if (lineOfText.startsWith("List") ) {
+            } else if (lineOfText.startsWith("List")) {
                 String name = lineOfText.substring(5);
                 System.out.print(hm.get(name));
-
-                /* For total transaction amounts
-                 if name typed in is equal to the fromName then - transAmount
-                 if name typed in is equal to toName then + transAmount for each transaction
-                */
             }
         }
 
 
     }
 }
-
-
-// if(userinput.equals(Person))
-//            System.out.println(Person.transactions);
-//    public static Hashmap<String, Person> createPerson(List<Transaction>) {
-//
-//
-//    }
-//
-// System.out.println("There are " + people.size() + " people");
-//        for (Person p : people) {
-//            System.out.println(p.name);
-//
-//            if (p.name.equals(p));
-//
-//        }
-
-//    private void setName(String nextLine) {
-//    }
-

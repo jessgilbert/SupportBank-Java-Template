@@ -1,12 +1,7 @@
 package training.supportbank;
 
-import java.text.DecimalFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 
 public class Person {
@@ -26,11 +21,11 @@ public class Person {
 
         for (Transaction currentTransaction : transactions) {
 
-            if (name.equals(currentTransaction.fromName)) {
-                total = total - currentTransaction.transAmount;
+            if (name.equals(currentTransaction.fromAccount)) {
+                total = total - currentTransaction.amount;
             }
-            if(name.equals(currentTransaction.toName)) {
-                total = total + currentTransaction.transAmount;
+            if(name.equals(currentTransaction.toAccount)) {
+                total = total + currentTransaction.amount;
             }
         }
 
